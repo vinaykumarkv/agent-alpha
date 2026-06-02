@@ -18,7 +18,8 @@ class SupervisorAgent:
         Keep it concise and professional.
         """
 
-        explanation = self.llm.generate(prompt)
+        explanation, tokens = self.llm.generate(prompt)
+        self.last_tokens = tokens
 
         confidence = "HIGH" if diagnostics["risk_level"] == "HIGH" else "MEDIUM"
 

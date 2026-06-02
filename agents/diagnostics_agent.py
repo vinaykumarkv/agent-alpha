@@ -23,7 +23,8 @@ class DiagnosticsAgent:
         }}
         """
 
-        response = self.llm.generate(prompt)
+        response, tokens = self.llm.generate(prompt)
+        self.last_tokens = tokens
 
         try:
             import json
@@ -39,4 +40,4 @@ class DiagnosticsAgent:
             "issue": vision_result["issue"],
             "root_cause": parsed["root_cause"],
             "risk_level": parsed["risk_level"]
-        }
+        }  

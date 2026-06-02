@@ -20,7 +20,8 @@ class PlanningAgent:
         Return as bullet points.
         """
 
-        response = self.llm.generate(prompt)
+        response, tokens = self.llm.generate(prompt)
+        self.last_tokens = tokens
 
         steps = [line.strip("- ").strip() for line in response.split("\n") if line.strip()]
 

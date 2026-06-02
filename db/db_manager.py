@@ -77,3 +77,14 @@ def fetch_all_events():
 
     conn.close()
     return rows
+
+
+def fetch_feedback():
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT was_solution_correct FROM feedback")
+    rows = cursor.fetchall()
+
+    conn.close()
+    return rows
