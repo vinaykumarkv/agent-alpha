@@ -1,11 +1,18 @@
 from openai import OpenAI
+
 import os
 
 class LLMClient:
     def __init__(self):
-        self.client = OpenAI(base_url='http://localhost:11434/v1', api_key='ollama')
-        #self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-        self.model = "phi3:mini"
+        llm_key = os.getenv("OLLAMA_KEY")
+        llm_url = os.getenv("OLLAMA_BASE_URL")
+        llm_model = os.getenv("OLLAMA_MODEL")
+        # llm_url = os.getenv("GEMINI_URL")
+        # llm_key = os.getenv("GEMINI_API_KEY")
+        # llm_model = os.getenv("GEMINI_MODEL")
+
+        self.client = OpenAI(base_url=llm_url, api_key=llm_key)
+        self.model = llm_model
 
     def generate(self, prompt):
         response = self.client.chat.completions.create(

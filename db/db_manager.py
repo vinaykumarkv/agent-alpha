@@ -9,14 +9,14 @@ def get_connection():
 
 
 # ✅ EVENT LOGGING
-def log_event(equipment_type, detected_issue, confidence, image_path, telemetry):
+def log_event(equipment_type, detected_issue, confidence, image_path, telemetry, metrics):
     conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute("""
-        INSERT INTO events (equipment_type, detected_issue, confidence_score, image_path, telemetry_snapshot)
-        VALUES (?, ?, ?, ?, ?)
-    """, (equipment_type, detected_issue, confidence, image_path, telemetry))
+        INSERT INTO events (equipment_type, detected_issue, confidence_score, image_path, telemetry_snapshot, metrics_snapshot)
+        VALUES (?, ?, ?, ?, ?, ?)
+    """, (equipment_type, detected_issue, confidence, image_path, telemetry, metrics))
 
     event_id = cursor.lastrowid
     conn.commit()

@@ -2,7 +2,7 @@ import random
 from models.vision.yolov8_model import YOLOModel
 
 class VisionAgent:
-    def __init__(self, use_mock=True):
+    def __init__(self, use_mock=False):
         self.use_mock = use_mock
         if not use_mock:
             self.model = YOLOModel()

@@ -17,10 +17,15 @@ class VectorStore:
             self.db.save_local(path)
 
     def load(self, path="rag/faiss_index"):
-        self.db = FAISS.load_local(
-            path, 
-            self.embedding,
-            allow_dangerous_deserialization=True
+        try:
+            self.db = FAISS.load_local(
+                path,
+                self.embedding,
+                allow_dangerous_deserialization=True
+            )
+        except Exception as exc:
+            raise RuntimeError(
+                f"Failed to load FAISS index from {path}: {exc}"
             )
 
     def search(self, query, k=3):

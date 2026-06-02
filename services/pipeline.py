@@ -10,7 +10,7 @@ from db.db_manager import log_event, log_recommendation
 import json
 
 # ✅ Initialize agents
-vision_agent = VisionAgent(use_mock=True)
+vision_agent = VisionAgent(use_mock=False)
 retrieval_agent = RetrievalAgent()
 diagnostics_agent = DiagnosticsAgent()
 planning_agent = PlanningAgent()
@@ -30,12 +30,14 @@ def run_pipeline(image_path):
 
     # ✅ Run full orchestration
     results = orchestrator.execute(image_path)
+    
 
     vision_result = results["vision"]
     telemetry = results["telemetry"]
     diagnostics = results["diagnostics"]
     knowledge = results["knowledge"]
     final_output = results["final_output"]
+    metrics = results["metrics"]
 
     # ✅ Log event
     event_id = log_event(
@@ -43,7 +45,8 @@ def run_pipeline(image_path):
         detected_issue=vision_result["issue"],
         confidence=vision_result["confidence"],
         image_path=image_path,
-        telemetry=json.dumps(telemetry)
+        telemetry=json.dumps(telemetry),
+        metrics=json.dumps(metrics)
     )
 
     # ✅ Log recommendation

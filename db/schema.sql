@@ -5,7 +5,9 @@ CREATE TABLE IF NOT EXISTS events (
     detected_issue TEXT,
     confidence_score REAL,
     image_path TEXT,
-    telemetry_snapshot TEXT
+    telemetry_snapshot TEXT,
+    metrics_snapshot TEXT,
+    token_usage INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS recommendations (

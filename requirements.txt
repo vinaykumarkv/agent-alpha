@@ -6,6 +6,7 @@ faiss-cpu
 sentence-transformers
 openai
 python-dotenv
+psutil
 pandas
 sqlite-utils
 langchain-community
