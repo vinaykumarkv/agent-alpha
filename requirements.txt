@@ -11,3 +11,12 @@ pandas
 sqlite-utils
 langchain-community
 langchain-huggingface
+ultralytics
+urllib3
+uuid_utils
+uvicorn
+watchdog
+websockets
+xxhash
+yarl
+zstandard

@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 
 class YOLOModel:
-    def __init__(self, model_path="yolov8n.pt"):
+    def __init__(self, model_path="yolov8n.pt"): #can be replaced with path to finetuned model
         self.model = YOLO(model_path)
 
     def predict(self, image_path):
