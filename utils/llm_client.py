@@ -17,4 +17,7 @@ class LLMClient:
             temperature=0.3
         )
 
-        return response.choices[0].message.content.strip()
+        
+        tokens = response.usage.total_tokens if response.usage else 0
+
+        return response.choices[0].message.content.strip(), tokens
