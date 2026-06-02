@@ -1,29 +1,31 @@
+from utils.llm_client import LLMClient
+
 class PlanningAgent:
+    def __init__(self):
+        self.llm = LLMClient()
+
     def generate_plan(self, diagnostics, knowledge_docs):
-        issue = diagnostics["issue"]
-        root_cause = diagnostics["root_cause"]
+        context = "\n".join(knowledge_docs[:2])
 
-        steps = []
+        prompt = f"""
+        Equipment: {diagnostics['equipment']}
+        Issue: {diagnostics['issue']}
+        Root Cause: {diagnostics['root_cause']}
 
-        # Extract steps from retrieved knowledge
-        if knowledge_docs:
-            raw_text = knowledge_docs[0]
+        Reference SOP:
+        {context}
 
-            for line in raw_text.split("\n"):
-                line = line.strip()
-                if line.startswith("-"):
-                    steps.append(line.replace("-", "").strip())
+        Generate a step-by-step repair plan (max 5 steps).
+        Keep it practical and technician-friendly.
+        Return as bullet points.
+        """
 
-        # Add fallback steps if nothing found
-        if not steps:
-            steps = [
-                "Inspect affected component",
-                "Check system stability",
-                "Restart equipment after inspection"
-            ]
+        response = self.llm.generate(prompt)
+
+        steps = [line.strip("- ").strip() for line in response.split("\n") if line.strip()]
 
         return {
-            "issue": issue,
-            "root_cause": root_cause,
-            "steps": steps[:5]  # limit steps
+            "issue": diagnostics["issue"],
+            "root_cause": diagnostics["root_cause"],
+            "steps": steps[:5]
         }

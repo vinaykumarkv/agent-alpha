@@ -1,21 +1,29 @@
-class SupervisorAgent:
-    def validate(self, diagnostics, plan, knowledge):
-        explanation = f"""
-        Issue detected: {diagnostics['issue']}
-        Root cause inferred: {diagnostics['root_cause']}
+from utils.llm_client import LLMClient
 
-        This recommendation is generated using:
-        - Vision-based detection
-        - Telemetry analysis
-        - Retrieved SOP documents
+class SupervisorAgent:
+    def __init__(self):
+        self.llm = LLMClient()
+
+    def validate(self, diagnostics, plan, knowledge):
+        prompt = f"""
+        Issue: {diagnostics['issue']}
+        Root Cause: {diagnostics['root_cause']}
+
+        Steps:
+        {plan['steps']}
 
         Knowledge Query: {knowledge['query']}
+
+        Explain WHY these steps are correct in simple terms.
+        Keep it concise and professional.
         """
+
+        explanation = self.llm.generate(prompt)
 
         confidence = "HIGH" if diagnostics["risk_level"] == "HIGH" else "MEDIUM"
 
         return {
             "final_steps": plan["steps"],
-            "explanation": explanation.strip(),
+            "explanation": explanation,
             "confidence_level": confidence
         }
