@@ -3,11 +3,13 @@ import os
 
 class LLMClient:
     def __init__(self):
-        self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        self.client = OpenAI(base_url='http://localhost:11434/v1', api_key='ollama')
+        #self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        self.model = "phi3:mini"
 
     def generate(self, prompt):
         response = self.client.chat.completions.create(
-            model="gpt-4o-mini",
+            model=self.model,
             messages=[
                 {"role": "system", "content": "You are an expert industrial field technician."},
                 {"role": "user", "content": prompt}
