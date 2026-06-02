@@ -1,0 +1,11 @@
+streamlit
+opencv-python
+ultralytics
+langchain
+faiss-cpu
+sentence-transformers
+openai
+python-dotenv
+pandas
+sqlite-utils
+langchain-community
