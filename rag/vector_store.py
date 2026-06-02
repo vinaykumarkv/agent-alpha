@@ -17,7 +17,11 @@ class VectorStore:
             self.db.save_local(path)
 
     def load(self, path="rag/faiss_index"):
-        self.db = FAISS.load_local(path, self.embedding)
+        self.db = FAISS.load_local(
+            path, 
+            self.embedding,
+            allow_dangerous_deserialization=True
+            )
 
     def search(self, query, k=3):
         return self.db.similarity_search(query, k=k)

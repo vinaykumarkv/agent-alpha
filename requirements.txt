@@ -9,3 +9,4 @@ python-dotenv
 pandas
 sqlite-utils
 langchain-community
+langchain-huggingface
