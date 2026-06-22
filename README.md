@@ -584,10 +584,10 @@ To extend Agent-Alpha:
 
 ## 📝 License
 
-[Add your license here]
+MIT License
 
 ---
 
 ## 📧 Support
 
-For questions or issues, please contact your development team or create an issue in the repository.
+For questions or issues, create an issue in the repository.
